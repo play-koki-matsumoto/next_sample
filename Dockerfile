@@ -31,7 +31,8 @@ ENV TZ JST-9
 ENV PORT=8080
 
 WORKDIR /app
-COPY --from=builder /app/node_modules ./node_modules
+RUN npm ci && npm run build
+
 COPY --from=builder /app/ecosystem4docker.config.js ./ecosystem.config.js
 COPY --from=builder /app/next.config.js ./next.config.js
 # COPY --from=builder /app/public ./public/
