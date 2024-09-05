@@ -1,0 +1,19 @@
+.vscode
+.next
+.git
+.gitignore
+.husky
+
+node_modules
+
+# aws sam
+.aws-sam
+samconfig*
+
+# build
+build
+out
+dist
+
+# exclude
+infrastructure

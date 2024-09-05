@@ -1,0 +1,47 @@
+services:
+  # GALLERY Front WEB
+  gallery-front:
+    container_name: gallery-front-dev
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        - APP_ENV=staging
+    restart: always
+    ports:
+      - "3001:3000"
+    # environment:
+    #   - WATCHPACK_POLLING=true
+    volumes:
+      - ../../:/app
+      - ../../node_modules:/app/node_modules
+    networks:
+      - default
+
+#   # Redis
+#   redis:
+#     image: redis:7.4.0
+#     hostname: redis
+#     ports:
+#       - "6379:6379"
+#   #RedisCluster
+#   redis-cluster:
+#     environment:
+#       IP: 0.0.0.0
+#       SENTINEL: "false"
+#       STANDALONE: "false"
+#     build:
+#       context: .
+#       args:
+#         redis_version: '7.4.0'
+#     hostname: redis-cluster
+#     ports:
+#       - '7000-7007:7000-7007'
+#       - '5000-5002:5000-5002'
+
+# # volumes:
+# #   node_modules:
+
+# # networks:
+# #   shared-network:
+# #     external: true
