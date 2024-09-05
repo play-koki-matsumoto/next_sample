@@ -47,4 +47,4 @@ RUN ln -s /tmp/cache ./.next/cache
 # CMD exec ./run.sh
 
 RUN npm i pm2@${PM2_VERSION} -g
-CMD npm run pm2-runtime start ecosystem.config.js -- --env ${APP_ENV} -i max
+CMD pm2-runtime start ecosystem.config.js -- --env ${APP_ENV} -i max
