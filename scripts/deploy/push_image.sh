@@ -69,7 +69,7 @@ env=$2;
 echo "--- Start ${project} deploy ---"
 
 # build配下を削除
-npm run clean
+# npm run clean
 
 case "${env}" in
     "prod")
@@ -83,7 +83,7 @@ case "${env}" in
         readonly send_queue="https://sqs.ap-northeast-1.amazonaws.com/${account_id}/play-store-prod-send-deploy-message-queue.fifo"
         send_slack ${env} ${cluster} ${send_queue} "START" ""
         echo "--- Start build src ---"
-        npm run bundle -- --release
+        # npm run bundle -- --release
         ;;
     "stg")
         echo "--- Start push docker image for staging ---"
@@ -96,7 +96,7 @@ case "${env}" in
         readonly send_queue="https://sqs.ap-northeast-1.amazonaws.com/${account_id}/pvs-b-stg-send-deploy-message-queue.fifo"
         send_slack ${env} ${cluster} ${send_queue} "START" ""
         echo "--- Start build src ---"
-        npm run bundle -- --staging
+        # npm run bundle -- --staging
         ;;
     *)
     echo "--- Error !! ---"
