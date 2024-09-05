@@ -27,12 +27,13 @@ FROM public.ecr.aws/docker/library/node:20.17-slim AS runner
 
 ARG APP_ENV=production
 ENV APP_ENV ${APP_ENV}
+ARG PM2_VERSION=5.4.1
 ENV TZ JST-9
 ENV PORT=8080
 
 WORKDIR /app
-RUN npm ci && npm run build
 
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/ecosystem4docker.config.js ./ecosystem.config.js
 COPY --from=builder /app/next.config.js ./next.config.js
 # COPY --from=builder /app/public ./public/
@@ -44,4 +45,6 @@ VOLUME /tmp/
 RUN mkdir -p /tmp/cache
 RUN ln -s /tmp/cache ./.next/cache
 # CMD exec ./run.sh
-CMD npm run pm2-start-runtime -- --env ${APP_ENV} -i max
+
+RUN npm i pm2@${PM2_VERSION} -g
+CMD npm run pm2-runtime start ecosystem.config.js -- --env ${APP_ENV} -i max
